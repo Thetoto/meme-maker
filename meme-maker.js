@@ -1,5 +1,5 @@
 let fs = require('fs')
-let gm = require('gm')
+let gm = require('gm').subClass({ imageMagick: true });
 
 module.exports = function(options, callback) {
 

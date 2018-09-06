@@ -28,6 +28,10 @@ module.exports = function(options, callback) {
     // Create new graphicsmagick instance
     let img = gm(options.image)
 
+    if(!img) {
+      return callback(new Error('Can not open this img.'), null)
+    }
+
     // Set some defaults
     const TOP_TEXT = 'topText' in options ? options.topText : ''
     const BOTTOM_TEXT = 'bottomText' in options ? options.bottomText : ''
@@ -41,7 +45,9 @@ module.exports = function(options, callback) {
 
     // Get the image size to calculate top and bottom text positions
     img.size(function(err, dimensions) {
-
+      if(!dimensions) {
+        return callback(new Error('Can not open this img.'), null)
+      }
       // Set text position for top and bottom
       const TOP_POS = Math.abs((dimensions.height / 2) - PADDING) * -1
       const BOTTOM_POS = (dimensions.height / 2) - PADDING
